@@ -3,10 +3,12 @@ import {Task} from "./task";
 
 export interface ManagerOptions {
     threadNumber: number;
+    sleepTime: number
 }
 
 const defaultOptions: ManagerOptions = {
-    threadNumber: 3
+    threadNumber: 3,
+    sleepTime: 1
 };
 
 export class Manager<T> {
@@ -18,6 +20,9 @@ export class Manager<T> {
     private taskSteps: Array<compose.Middleware<T>> = [];
 
     private middleware: Map<String, compose.Middleware<T>> = new Map();
+
+    private catchFn: Function = () => {
+    };
 
     constructor(options: ManagerOptions = defaultOptions) {
         this.options = Object.assign({}, defaultOptions, options);
@@ -38,7 +43,16 @@ export class Manager<T> {
     async start(ctx: T) {
         while (this.tasks.size < this.options.threadNumber) {
             await this.runTask(ctx);
+            await this.sleep(this.options.sleepTime);
         }
+    }
+
+    async sleep(time: number) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve();
+            }, time * 1000);
+        });
     }
 
     async runTask(ctx: T) {
@@ -53,7 +67,11 @@ export class Manager<T> {
         }).catch((err: Error) => {
             this.tasks.delete(task);
             this.start(ctx);
+            this.catchFn(err);
         })
     }
 
+    catch(fn: Function) {
+        this.catchFn = fn;
+    }
 }
