@@ -5,6 +5,7 @@
     "strict": true,
     "sourceMap": true,
     "sourceRoot": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "declaration": true
   }
 }

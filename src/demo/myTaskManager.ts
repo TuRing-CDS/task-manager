@@ -1,4 +1,4 @@
-import {Manager} from '../manager';
+import {Manager} from '../index';
 
 interface IContext {
     [propName: string]: any

@@ -9,5 +9,9 @@
   "dependencies": {
     "@types/koa-compose": "^3.2.2",
     "koa-compose": "^4.0.0"
+  },
+  "scripts": {
+    "compile": "rm -rf dist && tsc",
+    "prepublish": "npm run compile"
   }
 }
