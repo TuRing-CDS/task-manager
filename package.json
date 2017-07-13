@@ -1,11 +1,12 @@
 {
   "name": "cds-task",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "task-manager",
   "main": "dist/index.js",
   "repository": "https://github.com/TuRing-CDS/task-manager.git",
   "author": "I'amee <admin@cavacn.com>",
   "license": "MIT",
+  "typings": "dist/index.d.ts",
   "dependencies": {
     "@types/koa-compose": "^3.2.2",
     "koa-compose": "^4.0.0"
